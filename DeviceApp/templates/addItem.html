@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <form action="/add" method="POST">
+
+        <div class="align-items-start">
+
+            {% for item in columns %}
+                <label id="add_Label" class="row">{{ item|capitalize }}</label>
+                <input class="row" type="text" name="{{item}}" value="{{item}}">
+            {% endfor %}
+
+        </div>
+        
+        <input type="submit" value="Post">
+    </form>
+</div>
+
+{% endblock %}
