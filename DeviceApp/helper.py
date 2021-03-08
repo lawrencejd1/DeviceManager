@@ -16,8 +16,6 @@ def get_columns():
         for item in c.fetchall():
             columnNames.append(item[1])
 
-        print(columnNames)
-
         conn.close()
 
         return columnNames
@@ -49,7 +47,7 @@ def get_list():
 
         c = conn.cursor()
 
-        c.execute("SELECT * FROM Items")
+        c.execute("SELECT * FROM Device_Tracker")
 
         items = c.fetchall()
 
