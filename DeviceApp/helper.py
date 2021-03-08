@@ -2,16 +2,29 @@ import sqlite3
 
 DB_PATH = 'DeviceManager.db'
 
-def get_columns():
+def get_tables():
 
-    columnNames = []
+    conn = sqlite3.connect(DB_PATH)
+
+    c = conn.cursor()
+
+    c.execute("SELECT name FROM sqlite_master WHERE type='table'")
+
+    for tables in c.fetchall():
+        print(tables)
+
+def get_columns(table):
 
     try:
+        columnNames = []
+
+        sqlCommand = f"PRAGMA table_info({table})"
+
         conn = sqlite3.connect(DB_PATH)
 
         c = conn.cursor()
 
-        c.execute("PRAGMA table_info(Items)")
+        c.execute(sqlCommand)
         
         for item in c.fetchall():
             columnNames.append(item[1])
@@ -24,30 +37,17 @@ def get_columns():
         print('Error: ', e)
         return None
 
-def add_to_list(title, content):
+
+def get_list(table):
     try:
+
+        sqlCommand = f"SELECT * FROM {table}"
+
         conn = sqlite3.connect(DB_PATH)
 
         c = conn.cursor()
 
-        c.execute("INSERT INTO Items (title, content) VALUES (?,?)", (title, content))
-        
-        conn.commit()
-
-        conn.close()
-
-
-    except Exception as e:
-        print('Error: ', e)
-        return None
-
-def get_list():
-    try:
-        conn = sqlite3.connect(DB_PATH)
-
-        c = conn.cursor()
-
-        c.execute("SELECT * FROM Device_Tracker")
+        c.execute(sqlCommand)
 
         items = c.fetchall()
 
@@ -57,6 +57,35 @@ def get_list():
 
     except Exception as e:
         print("Error: ", e)
+        return None
+
+def add_to_list(columns, values):
+    try:
+        columnString = ""
+        valueString = ""
+
+        for column in columns:
+            columnString += column + ","
+        
+        for value in values:
+            valueString += value + ","
+
+        sqlCommand = f"INSERT INTO Items ({columnString}) VALUES ({valueString})"
+        print(sqlCommand)
+
+        conn = sqlite3.connect(DB_PATH)
+
+        c = conn.cursor()
+
+        # c.execute()
+        
+        conn.commit()
+
+        conn.close()
+
+
+    except Exception as e:
+        print('Error: ', e)
         return None
 
 def delete_all_items():

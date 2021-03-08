@@ -5,15 +5,18 @@ import helper
 app =  Flask(__name__)
 
 @app.route("/")
-def main():
+def index():    
 
-    items = helper.get_list()
-    print(items)
+    return render_template('index.html')
 
-    columns = helper.get_columns()
-    
+@app.route("/device_tracker")
+def device_tracker():
 
-    return render_template('index.html', columns=columns, items=items)
+    items = helper.get_list("device_tracker")
+
+    columns = helper.get_columns("device_tracker")
+
+    return render_template('device_tracker.html', columns=columns, items=items)
 
 @app.route('/add', methods=['POST'])
 def add_page():
@@ -31,7 +34,7 @@ def add_item():
     content = req_data['content']
 
     # Add item to the list
-    res_data = helper.add_to_list(title, content)
+    res_data = helper.add_to_list(columns, values)
 
     return redirect('/')
 

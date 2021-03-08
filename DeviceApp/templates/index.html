@@ -2,38 +2,11 @@
 
 
 {% block content %}
-
-<div class="">
-    <form action="/add" method="POST">
-        <!-- <input type="text" name="title" value="Enter Title Here">
-        <input type="text" name="content" value="Enter Content Here"> -->
-        <input type="submit" value="Post">
-    </form>
+<div class="d-flex align-items-center">
+    <div class="container-fluid">
+      <h1 class="row justify-content-center">Welcome to the Device Manager List!</h1>
+      <h2 class="row justify-content-center">Choose a page to get started</h2>
+    </div>
 </div>
-
-<table class="table table-striped table-dark">
-
-    <thread>
-        <tr id="columns">
-            {% for column in columns %}
-            <th scope="col">{{column}}</th>
-            {% endfor %}
-        </tr>
-    </thread>
-
-    {% for item in items %}
-
-    <tr>
-        <td>{{item[0]}}</td>
-        <td>{{item[1]}}</td>
-    </tr>
-
-    {% endfor %}
-
-</table>
-
-<form action="/delete" method="POST">
-    <button type="submit">Delete All</button>
-</form>
 
 {% endblock %}
