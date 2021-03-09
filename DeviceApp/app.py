@@ -4,19 +4,29 @@ import helper
 
 app =  Flask(__name__)
 
-@app.route("/")
+helper.get_tables()
+
+
+@app.route("/index")
+@app.route('/')
 def index():    
 
     return render_template('index.html')
 
-@app.route("/device_tracker")
-def device_tracker():
+##PAGES
+@app.route("/<path>")
+def show_page(path): 
 
-    items = helper.get_list("device_tracker")
+    # if path == None:
+    #     path = str(request.path)
+    #     path = path[1:]
+    #     print(path)
 
-    columns = helper.get_columns("device_tracker")
+    items = helper.get_list(path)
 
-    return render_template('device_tracker.html', columns=columns, items=items)
+    columns = helper.get_columns(path)
+
+    return render_template(f'{path}.html', columns=columns, items=items)
 
 @app.route('/add', methods=['POST'])
 def add_page():

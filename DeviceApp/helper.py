@@ -11,7 +11,7 @@ def get_tables():
     c.execute("SELECT name FROM sqlite_master WHERE type='table'")
 
     for tables in c.fetchall():
-        print(tables)
+        print(tables[0])
 
 def get_columns(table):
 

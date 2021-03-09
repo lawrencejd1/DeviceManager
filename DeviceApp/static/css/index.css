@@ -1,14 +1,23 @@
+@media only screen and (max-width: 600px) {
+
+}
+
 html, body {
-    background-color: rgb(87, 87, 87)
+    background-color: rgb(87, 87, 87);
+    height: 100%;
 }
 
 #header {
     color: white;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
-#columns {
+.columns {
     background-color: rgb(202, 202, 202);
     color: black;
+    position: sticky;
+    top: 0;
 }
 
 #add_label {
@@ -17,4 +26,13 @@ html, body {
 
 h1, h2 {
     color: white
+}
+
+#welcome{
+    text-align: center;
+}
+
+#welcome h1, #welcome h2 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
