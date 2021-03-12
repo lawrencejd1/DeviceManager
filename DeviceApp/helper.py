@@ -4,14 +4,20 @@ DB_PATH = 'DeviceManager.db'
 
 def get_tables():
 
+    tables = []
+
     conn = sqlite3.connect(DB_PATH)
 
     c = conn.cursor()
 
     c.execute("SELECT name FROM sqlite_master WHERE type='table'")
 
-    for tables in c.fetchall():
-        print(tables[0])
+    # print(c.fetchall())
+
+    for table in c.fetchall():
+        tables.append(table[0])
+
+    return tables
 
 def get_columns(table):
 
@@ -41,22 +47,27 @@ def get_columns(table):
 def get_list(table):
     try:
 
+        items = []
+
         sqlCommand = f"SELECT * FROM {table}"
 
         conn = sqlite3.connect(DB_PATH)
 
         c = conn.cursor()
-
+        print("1")
         c.execute(sqlCommand)
+        print("2")
 
-        items = c.fetchall()
+        for item in c.fetchall():
+
+            items.append(item)
 
         conn.close()
 
         return items
 
     except Exception as e:
-        print("Error: ", e)
+        print("Error get_list: ", e)
         return None
 
 def add_to_list(columns, values):

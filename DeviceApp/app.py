@@ -4,7 +4,24 @@ import helper
 
 app =  Flask(__name__)
 
-helper.get_tables()
+@app.context_processor
+def layoutVariables():
+
+    try:
+        pageNames = []
+
+        dataTables = helper.get_tables()
+
+        for table in dataTables:
+            table = table.replace('_', " ")
+            table = table.title()
+            pageNames.append(table)
+            print(pageNames)
+
+        return dict(dataTables=dataTables, pageNames=pageNames)
+
+    except Exception as e:
+        print("Not loading variables: ", e)
 
 
 @app.route("/index")
@@ -13,20 +30,18 @@ def index():
 
     return render_template('index.html')
 
-##PAGES
-@app.route("/<path>")
-def show_page(path): 
+##DISPLAY PAGES FROM TABLES
+@app.route("/tables/<table>")
+def show_page(table): 
 
-    # if path == None:
-    #     path = str(request.path)
-    #     path = path[1:]
-    #     print(path)
+    items = helper.get_list(table)
+    items.reverse()
 
-    items = helper.get_list(path)
+    columns = helper.get_columns(table)
 
-    columns = helper.get_columns(path)
+    return render_template('tablePage.html', columns=columns, items=items)
 
-    return render_template(f'{path}.html', columns=columns, items=items)
+##-----------------------------
 
 @app.route('/add', methods=['POST'])
 def add_page():

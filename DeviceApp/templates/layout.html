@@ -16,14 +16,14 @@
     </head>
     
     <body class="h-100">
-        <header id="headertr">
+        <header id="header">
             <div id="header" class="container-fluid">
                 <h1 class="row justify-content-center">Device Manager</h1>
             </div>
     
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
     
-                <a class="navbar-brand" href="#">Device Tracker</a>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Device Tracker</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
@@ -31,15 +31,15 @@
                 <div class="collapse navbar-collapse" id="navbarText">
     
                   <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                       <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
+
+                    {% for dataTable in dataTables %}
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('show_page', path='device_tracker') }}">Device Tracker</a>
+                      <a class="nav-link" href="{{ url_for('show_page', table=dataTable) }}">{{pageNames[loop.index-1]}}</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('show_page', path='desktops') }}">Desktops</a>
-                    </li>
+                    {% endfor %}
                   </ul>
     
                 </div>

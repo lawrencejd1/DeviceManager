@@ -17,7 +17,7 @@
     <thead>
         <tr class="columns">
             {% for column in columns %}
-            <th class="columns" scope="col">{{column}}</th>
+            <th class="columns align-self-center" scope="col">{{column}}</th>
             {% endfor %}
         </tr>
     </tread>
@@ -34,9 +34,5 @@
 
 </table>
 </div>
-
-<form action="/delete" method="POST">
-    <button type="submit">Delete All</button>
-</form>
 
 {% endblock %}
