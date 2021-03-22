@@ -62,8 +62,8 @@ def add_item():
 
     return redirect('/')
 
-@app.route('/delete', methods=['POST'])
-def delete_items():
+@app.route('/edit', methods=['POST'])
+def edit_item():
     
     item = list(request.form)
     itemInfo = item[0].split(':')
@@ -71,7 +71,20 @@ def delete_items():
     itemID = itemInfo[1]
 
     print(f"Table: {table} - Item ID: {itemID}")
-    #helper.deleteItem(table, itemID)
+    helper.editItem(table, itemID)
+
+    return redirect('/')
+
+@app.route('/delete', methods=['POST'])
+def delete_item():
+    
+    item = list(request.form)
+    itemInfo = item[0].split(':')
+    table = itemInfo[0]
+    itemID = itemInfo[1]
+
+    print(f"Table: {table} - Item ID: {itemID}")
+    helper.delete_item(table, itemID)
 
     return redirect('/')
 

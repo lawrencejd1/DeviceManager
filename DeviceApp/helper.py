@@ -2,6 +2,7 @@ import sqlite3
 
 DB_PATH = 'DeviceManager.db'
 
+
 def get_tables():
 
     tables = []
@@ -94,21 +95,7 @@ def add_to_list(columns, values):
         print('Error: ', e)
         return None
 
-def delete_all_items():
-    try:
-        conn = sqlite3.connect(DB_PATH)
-
-        c = conn.cursor()
-
-        c.execute("DELETE FROM Items")
-
-        conn.commit()
-        conn.close()
-    except Exception as e:
-        print("Error: ", e)
-        return None
-
-def delete_Item(table, itemID):
+def edit_item(table, itemID):
     try:
         conn = sqlite3.connect(DB_PATH)
 
@@ -120,6 +107,24 @@ def delete_Item(table, itemID):
 
         conn.commit()
         conn.close()
+
+    except Exception as e:
+        print("Error: ", e)
+        return None
+
+def delete_item(table, itemID):
+    try:
+        conn = sqlite3.connect(DB_PATH)
+
+        c = conn.cursor()
+
+        sqlCommand = f"DELETE FROM {table} WHERE ID={itemID}"
+
+        c.execute(sqlCommand)
+
+        conn.commit()
+        conn.close()
+
     except Exception as e:
         print("Error: ", e)
         return None
