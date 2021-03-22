@@ -12,8 +12,6 @@ def get_tables():
 
     c.execute("SELECT name FROM sqlite_master WHERE type='table'")
 
-    # print(c.fetchall())
-
     for table in c.fetchall():
         tables.append(table[0])
 
@@ -54,9 +52,7 @@ def get_list(table):
         conn = sqlite3.connect(DB_PATH)
 
         c = conn.cursor()
-        print("1")
         c.execute(sqlCommand)
-        print("2")
 
         for item in c.fetchall():
 
@@ -82,7 +78,6 @@ def add_to_list(columns, values):
             valueString += value + ","
 
         sqlCommand = f"INSERT INTO Items ({columnString}) VALUES ({valueString})"
-        print(sqlCommand)
 
         conn = sqlite3.connect(DB_PATH)
 
@@ -106,6 +101,22 @@ def delete_all_items():
         c = conn.cursor()
 
         c.execute("DELETE FROM Items")
+
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print("Error: ", e)
+        return None
+
+def delete_Item(table, itemID):
+    try:
+        conn = sqlite3.connect(DB_PATH)
+
+        c = conn.cursor()
+
+        sqlCommand = f"DELETE FROM {table} WHERE ID={itemID}"
+
+        c.execute(sqlCommand)
 
         conn.commit()
         conn.close()

@@ -16,7 +16,6 @@ def layoutVariables():
             table = table.replace('_', " ")
             table = table.title()
             pageNames.append(table)
-            print(pageNames)
 
         return dict(dataTables=dataTables, pageNames=pageNames)
 
@@ -39,7 +38,7 @@ def show_page(table):
 
     columns = helper.get_columns(table)
 
-    return render_template('tablePage.html', columns=columns, items=items)
+    return render_template('tablePage.html', table=table, columns=columns, items=items)
 
 ##-----------------------------
 
@@ -66,7 +65,13 @@ def add_item():
 @app.route('/delete', methods=['POST'])
 def delete_items():
     
-    helper.delete_all_items()
+    item = list(request.form)
+    itemInfo = item[0].split(':')
+    table = itemInfo[0]
+    itemID = itemInfo[1]
+
+    print(f"Table: {table} - Item ID: {itemID}")
+    #helper.deleteItem(table, itemID)
 
     return redirect('/')
 
