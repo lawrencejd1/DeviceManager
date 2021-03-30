@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <form action="/edit/submit" method="POST">
+
+        <div class="align-items-start">
+
+            <input name="table" type="hidden" value="{{table}}">
+            <input name="itemID" type="hidden" value="{{itemID}}">
+
+            {% for detail in itemDetails %}
+                <label class="row">{{ columns[loop.index-1]|capitalize }}</label>
+                <input class="row" type="text" name="{{loop.index-1}}" value="{{detail}}">
+            {% endfor %}
+
+        </div>
+        
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+{% endblock %}

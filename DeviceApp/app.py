@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import json
 import helper
 
@@ -12,8 +12,10 @@ def layoutVariables():
 
         dataTables = helper.get_tables()
 
+        dataTables.remove("sqlite_sequence")
+
         for table in dataTables:
-            table = table.replace('_', " ")
+            table = table.replace("_", " ")
             table = table.title()
             pageNames.append(table)
 
@@ -25,7 +27,7 @@ def layoutVariables():
 
 @app.route("/index")
 @app.route('/')
-def index():    
+def index():
 
     return render_template('index.html')
 
@@ -71,9 +73,37 @@ def edit_item():
     itemID = itemInfo[1]
 
     print(f"Table: {table} - Item ID: {itemID}")
-    helper.editItem(table, itemID)
 
-    return redirect('/')
+    columns = helper.get_columns(table)
+    columns = columns[1:]
+
+    itemDetails = helper.find_item_details(table, itemID)
+    itemDetails = itemDetails[1:]
+
+    return render_template('editPage.html', table=table, columns=columns, itemID=itemID, itemDetails=itemDetails)
+
+@app.route('/edit/submit', methods=["POST"])
+def submit_edit():
+
+    newItemDetails = []
+
+    editData = request.form
+
+    table = editData['table']
+    itemID = editData['itemID']
+
+    editDataKeys = list(editData)
+
+    for i, key in enumerate(editDataKeys):
+        if i == 0:
+            pass
+        else:
+            newItemDetails.append(editData[str(key)])
+
+    helper.edit_item(table, itemID, newItemDetails)
+
+
+    return redirect(url_for('show_page', table=table))
 
 @app.route('/delete', methods=['POST'])
 def delete_item():
@@ -83,10 +113,28 @@ def delete_item():
     table = itemInfo[0]
     itemID = itemInfo[1]
 
+    return render_template('confirmPage.html', table=table, itemID=itemID)
+
+@app.route('/delete/submit', methods=['POST'])
+def delete_item_confirm():
+    
+    itemData = request.form
+    table = itemData['table']
+    itemID = itemData['itemID']
+
     print(f"Table: {table} - Item ID: {itemID}")
+
     helper.delete_item(table, itemID)
 
-    return redirect('/')
+    return redirect(url_for('show_page', table=table))
+
+@app.route('/delete/undo', methods=['POST'])
+def no_delete():
+
+    table = request.form['table']
+
+    return redirect(url_for('show_page', table=table))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

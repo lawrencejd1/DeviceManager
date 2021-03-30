@@ -67,6 +67,35 @@ def get_list(table):
         print("Error get_list: ", e)
         return None
 
+def find_item_details(table, itemID):
+    
+    try:
+
+        columns = get_columns(table)
+
+        itemDetails = []
+
+        sqlCommand = f"SELECT * FROM {table} WHERE ID={itemID}"
+
+        conn = sqlite3.connect(DB_PATH)
+
+        c = conn.cursor()
+        c.execute(sqlCommand)
+
+        for detail in c.fetchall():
+            for item in detail:
+                print(item)
+                itemDetails.append(item)
+
+        conn.close()
+
+        return itemDetails
+
+    except Exception as e:
+        print("Error get_list: ", e)
+        return None
+
+
 def add_to_list(columns, values):
     try:
         columnString = ""
@@ -95,13 +124,30 @@ def add_to_list(columns, values):
         print('Error: ', e)
         return None
 
-def edit_item(table, itemID):
+def edit_item(table, itemID, newItemDetails):
     try:
+
+        columns = get_columns(table)
+
+        setCommand = ''
+
+        for i, column in enumerate(columns):
+
+            if(column == "ID"):
+                tempStr = newItemDetails[i].replace(" ", "")
+
+            tempStr = "'" + newItemDetails[i] + "'"
+
+            if(column != "ID"):
+                setCommand += f"{column}={tempStr}, "
+
+        setCommand = setCommand[:-2]
+
         conn = sqlite3.connect(DB_PATH)
 
         c = conn.cursor()
 
-        sqlCommand = f"DELETE FROM {table} WHERE ID={itemID}"
+        sqlCommand = f"UPDATE {table} SET {setCommand} WHERE ID={itemID}"
 
         c.execute(sqlCommand)
 
@@ -124,6 +170,7 @@ def delete_item(table, itemID):
 
         conn.commit()
         conn.close()
+
 
     except Exception as e:
         print("Error: ", e)
