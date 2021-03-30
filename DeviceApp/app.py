@@ -47,9 +47,32 @@ def show_page(table):
 @app.route('/add', methods=['POST'])
 def add_page():
 
-    columns = helper.get_columns()
+    table = request.form['table']
 
-    return render_template('addItem.html', columns=columns)
+    columns = helper.get_columns(table)
+
+    columns = columns[1:]
+
+    rows = []
+    row = []
+
+    for i, column in enumerate(columns, 1):
+
+        print(column)
+
+        if(i % 4 == 0 and i > 0):
+            row.append(column)
+            rows.append(row)
+            row = []
+            
+        else:
+            row.append(column)
+
+        if(column == columns[-1]):
+            row.append(column)
+            rows.append(row)
+
+    return render_template('addItem.html', table=table, columns=columns, rows=rows)
 
 
 @app.route('/add/submit', methods=['POST'])

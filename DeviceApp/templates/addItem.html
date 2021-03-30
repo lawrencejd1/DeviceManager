@@ -2,19 +2,44 @@
 
 {% block content %}
 
-<div class="container-fluid">
-    <form action="/add/submit" method="POST">
+<div class="container-fluid w-100">
 
-        <div class="align-items-start">
+    <div class="col">
+        <h2 class="row justify-content-center">{{table}}</h2>
+    </div>
+    
 
-            {% for item in columns %}
-                <label id="add_label" class="row">{{ item|capitalize }}</label>
-                <input class="row" type="text" name="{{item}}" value="{{item}}">
+    <form class="justify-content-center" action="/add/submit" method="POST">
+
+        <input type="hidden" name="table" value="{{table}}">
+
+            {% for row in rows %}
+            <div class="row justify-content-center">
+
+                {% for item in row %}
+                <div class="col m-2">
+
+                    <span class="row justify-content-center">
+                    <label class="" id="add_label">{{ item }}</label>
+                    </span>
+
+                    <span class="row justify-content-center">
+                    <input class="text-center" type="text" name="{{item}}" value="">
+                    </span>
+
+                </div>
+                {% endfor %}
+
+            </div>
             {% endfor %}
 
+
+        <div class="col mt-3">
+            <span class="row justify-content-center">
+            <input class="row p-2" type="submit" value="Post">
+            </span>
         </div>
-        
-        <input type="submit" value="Post">
+
     </form>
 </div>
 

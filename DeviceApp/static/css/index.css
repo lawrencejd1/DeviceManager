@@ -4,13 +4,16 @@
 
 html, body {
     background-color: rgb(87, 87, 87);
-    height: 100%;
 }
 
 #header {
     color: white;
     margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+}
+
+.tableDiv {
+    position: absolute;
 }
 
 .columns {
