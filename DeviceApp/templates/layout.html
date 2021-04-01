@@ -4,10 +4,13 @@
     <head>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
         
-        {% block style %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/index.css') }}">
+
+        {% block style %}
         {% endblock %}
+        
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +18,7 @@
         <title>Device Manager!</title>
     </head>
     
-    <body class="">
+    <body>
         <header id="header">
             <div id="header" class="container-fluid">
                 <h1 class="row justify-content-center">Device Manager</h1>
@@ -44,7 +47,7 @@
     
                 </div>
     
-              </nav>
+            </nav>
         </header>
 
         {% block content%} {% endblock %}

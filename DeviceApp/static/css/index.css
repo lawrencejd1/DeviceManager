@@ -12,15 +12,11 @@ html, body {
     margin-bottom: 1rem;
 }
 
-.tableDiv {
-    position: absolute;
-}
+
 
 .columns {
     background-color: rgb(202, 202, 202);
     color: black;
-    position: sticky;
-    top: 0;
 }
 
 #add_label {
@@ -38,4 +34,23 @@ h1, h2 {
 #welcome h1, #welcome h2 {
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+.tableHeader {
+    width: 100%;
+}
+
+.tableHeadRow {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3em;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    font-size: smaller;
+    padding-left: 2.75rem;
+    padding-right: 2.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
