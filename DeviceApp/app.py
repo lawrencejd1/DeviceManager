@@ -67,9 +67,10 @@ def add_page():
         else:
             row.append(column)
 
-        if(column == columns[-1]):
-            row.append(column)
-            rows.append(row)
+        # if(column == columns[-1]):
+        #     row.append(column)
+        #     rows.append(row)
+        #     print("third")
 
     return render_template('addItem.html', table=table, columns=columns, rows=rows)
 
@@ -78,11 +79,24 @@ def add_page():
 def add_item():
     # Get item from the POST body
     req_data = request.form
-    title = req_data['title']
-    content = req_data['content']
+
+    print(req_data)
+
+    table = req_data['table']
+
+    values = []
+
+    for item in req_data:
+        if (item == "table"):
+            pass
+        else:
+            print(req_data[item])
+            values.append(req_data[item])
+
+
 
     # Add item to the list
-    res_data = helper.add_to_list(columns, values)
+    res_data = helper.add_to_list(table, values)
 
     return redirect('/')
 

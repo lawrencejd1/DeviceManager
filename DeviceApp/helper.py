@@ -84,7 +84,6 @@ def find_item_details(table, itemID):
 
         for detail in c.fetchall():
             for item in detail:
-                print(item)
                 itemDetails.append(item)
 
         conn.close()
@@ -96,18 +95,29 @@ def find_item_details(table, itemID):
         return None
 
 
-def add_to_list(columns, values):
+def add_to_list(table, values):
+
+    columns = get_columns(table)
+
+    columns = columns[1:]
+
     try:
         columnString = ""
         valueString = ""
 
         for column in columns:
             columnString += column + ","
+
+        columnString = columnString[:-1]
         
         for value in values:
             valueString += value + ","
 
-        sqlCommand = f"INSERT INTO Items ({columnString}) VALUES ({valueString})"
+        valueString = valueString[:-1]
+
+        sqlCommand = f"INSERT INTO {table} ({columnString}) VALUES ({valueString})"
+
+        print(sqlCommand)
 
         conn = sqlite3.connect(DB_PATH)
 
