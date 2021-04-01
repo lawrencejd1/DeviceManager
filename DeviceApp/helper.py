@@ -113,7 +113,7 @@ def add_to_list(columns, values):
 
         c = conn.cursor()
 
-        # c.execute()
+        c.execute(sqlCommand)
         
         conn.commit()
 

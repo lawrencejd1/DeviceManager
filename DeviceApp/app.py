@@ -58,7 +58,6 @@ def add_page():
 
     for i, column in enumerate(columns, 1):
 
-        print(column)
 
         if(i % 4 == 0 and i > 0):
             row.append(column)
