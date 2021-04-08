@@ -35,12 +35,15 @@ def index():
 @app.route("/tables/<table>")
 def show_page(table): 
 
+
     items = helper.get_list(table)
     items.reverse()
 
     columns = helper.get_columns(table)
 
-    return render_template('tablePage.html', table=table, columns=columns, items=items)
+    tableName = table.replace("_",  " ")
+
+    return render_template('tablePage.html', table=table, tableName=tableName, columns=columns, items=items)
 
 ##-----------------------------
 
@@ -72,7 +75,9 @@ def add_page():
         #     rows.append(row)
         #     print("third")
 
-    return render_template('addItem.html', table=table, columns=columns, rows=rows)
+        tableName = table.replace("_",  " ")
+
+    return render_template('addItem.html', table=table, tableName=tableName, columns=columns, rows=rows)
 
 
 @app.route('/add/submit', methods=['POST'])

@@ -3,7 +3,7 @@
 }
 
 html, body {
-    background-color: rgb(87, 87, 87);
+    background-color: rgb(75, 75, 75);
 }
 
 #header {
@@ -53,6 +53,20 @@ th {
     padding-bottom: 0.75rem;
 }
 
-#tableName {
-    text-decoration: underline;
+.tableNameDiv {
+    text-align: center;
 }
+
+.tableName {
+    color: white;
+    display: inline-block;
+    text-align: center;
+    border: 0.2rem solid white;
+    border-radius: 1rem;
+    padding: 0.6rem;
+}
+
+.hover:hover {
+    background-color: lightgrey;
+}
+
