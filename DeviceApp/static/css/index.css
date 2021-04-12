@@ -4,6 +4,8 @@
 
 html, body {
     background-color: rgb(75, 75, 75);
+    height: 100%;
+    width: 100%;
 }
 
 #header {
@@ -34,9 +36,11 @@ h1, h2 {
     margin-bottom: 2rem;
 }
 
-.tableHeader {
+#tableDiv {
     width: 100%;
 }
+
+
 
 .tableHeadRow {
     font-family: 'Times New Roman', Times, serif;
@@ -46,11 +50,22 @@ h1, h2 {
 th {
     position: sticky;
     top: 0;
-    font-size: smaller;
-    padding-left: 2.75rem;
-    padding-right: 2.75rem;
+    font-size: 8px;
+    margin: 0;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+}
+
+td {
+    top: 0;
+    font-size: 8px;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem; 
 }
 
 .tableNameDiv {
