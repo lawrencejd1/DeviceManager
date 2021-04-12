@@ -16,7 +16,7 @@ function searchBox() {
       td = tr[i].getElementsByTagName("td")[filterNum];
       if (td) {
         txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase() === filter || filter === "") {
+        if (txtValue.toUpperCase().includes(filter) && txtValue.toUpperCase().indexOf(filter) == 0 || filter === "") {
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
