@@ -15,6 +15,8 @@ def get_tables():
 
     for table in c.fetchall():
         tables.append(table[0])
+    
+    tables.sort()
 
     return tables
 
@@ -111,7 +113,8 @@ def add_to_list(table, values):
         columnString = columnString[:-1]
         
         for value in values:
-            valueString += value + ","
+            
+            valueString += '"' + value + '"' + ','
 
         valueString = valueString[:-1]
 
